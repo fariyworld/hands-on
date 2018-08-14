@@ -1,0 +1,2 @@
+安装 aop日志 jar包
+mvn install:install-file -Dmaven.repo.local=D:\\m2\\repository -Dfile=base-webutils.jar -DgroupId=com.mace -DartifactId=base-webutils -Dversion=1.0-SNAPSHOT -Dpackaging=jar

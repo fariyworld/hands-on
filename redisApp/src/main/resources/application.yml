@@ -1,0 +1,93 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /redisApp
+
+logging:
+  level:
+    com.mace: debug
+
+jasypt:
+  encryptor:
+    password: aqeaqeaeqaeqraq
+
+spring:
+  application:
+    name: redis-app
+
+
+#  redis 数据源配置
+  redis:
+#    Redis服务器地址
+    host: 118.25.229.83
+#    Redis数据库索引（默认为0）
+    database: 0
+#    Redis服务器连接端口
+    port: 6379
+#    Redis服务器连接密码（默认为空）
+    password: ENC(d4bk7AT/lEj8vstM9iVIqGCS0J17v23F)
+#    Redis连接超时时间（1分钟）
+    timeout: 1m
+#    连接池
+    jedis:
+      pool:
+#        连接池最大连接数（使用负值表示没有限制）
+        max-active: 3
+#        连接池中的最大空闲连接
+        max-idle: 1
+#        连接池中的最小空闲连接
+        min-idle: 1
+#        连接池最大阻塞等待时间（使用负值表示没有限制）（1分钟）
+        max-wait: 1m
+#  数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver                #mysql 驱动包
+    url: jdbc:mysql://118.25.229.83:3306/mmall?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8         #数据库名称
+    username: root                                          #用户名
+    password: ENC(d4bk7AT/lEj8vstM9iVIqGCS0J17v23F)         #密码（采用 jasypt 加密配置密码 ）
+    druid:
+      name: druid-datasource-mmall
+      db-type: mysql
+
+
+  data:
+#    redis数据源配置
+    redis:
+      repositories:
+        enabled: true
+
+#  指定缓存的类型
+  cache:
+    type: redis
+
+
+#mybatis配置
+mybatis:
+  configuration:
+    #记录到日志
+#    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    #控制台输出sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #开启驼峰转换
+    map-underscore-to-camel-case: true
+    #使全局的映射器启用或禁用缓存
+    cache-enabled: true
+    #全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载
+    lazy-loading-enabled: true
+    #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
+    aggressive-lazy-loading: true
+    #允许JDBC 生成主键。需要驱动器支持
+    use-generated-keys: true
+    #指定 MyBatis 如何自动映射 数据基表的列 NONE：不隐射　PARTIAL:部分  FULL:全部
+    auto-mapping-behavior: partial
+    #这是默认的执行类型（SIMPLE: 简单； REUSE: 执行器可能重复使用prepared statements语句；BATCH: 执行器可以重复执行语句和批量更新)
+    default-executor-type: simple
+  #mybatis 别名
+  type-aliases-package: com.mace.handson.redisApp.entity
+  #mapper xml 扫描
+  mapper-locations: mapper*/*Mapper.xml
+
+
+
+
